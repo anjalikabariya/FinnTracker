@@ -12,20 +12,22 @@ export class HomePage extends Component {
         this.getQuote("AAPL");
         this.getProfile("AAPL");
     }
-    getQuote = (symbol) => {
-        Axios.get(API_URL+`/stock/candle?`, {params: {
+    getQuote = async (symbol) => {
+        const response = await Axios.get(API_URL+`/stock/candle?`, {params: {
             symbol: symbol,
             token: "c04d8tn48v6u76cjevm0",
             resolution: "D",
             from: Math.floor((new Date().setUTCFullYear(new Date().getUTCFullYear()-1)) / 1000),
             to: Math.floor((new Date().setUTCHours(new Date().getUTCHours()-1)) / 1000),
             }})
-            .then(response => {
+            try{
                 this.setState({
                     quote:this.formatData(response.data)
                 })
-            })
-            .catch(error => console.log(error));
+            }
+            catch(error){
+                console.log(error);
+            } 
     } 
     formatData = (data) => {
         const formattedData = []
@@ -42,18 +44,20 @@ export class HomePage extends Component {
         }
         return formattedData;
     }
-    getProfile = (symbol) => {
-        Axios.get(API_URL+`/stock/profile2?`, {params: {
+    getProfile = async (symbol) => {
+        const response = await Axios.get(API_URL+`/stock/profile2?`, {params: {
             symbol: symbol,
             token: "c04d8tn48v6u76cjevm0",
             }})
-            .then(response => {
+            try{
                 this.setState({
                     companyData:(response.data)
                 })
                 console.log(this.state.companyData)
-            })
-            .catch(error => console.log(error));
+            }
+            catch(error){
+                console.log(error);
+            }
     } 
     getStock = (symbol) => {
         this.getProfile(symbol)
