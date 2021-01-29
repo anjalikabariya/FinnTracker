@@ -1,17 +1,16 @@
 import {SearchForm} from '../../components';
 import React, { Component } from 'react'
+import {Chart, CompanyProfile} from '../../components';
 import Axios from 'axios';
-import CanvasJSReact from "canvasjs-react-charts";
-var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
-const API_URL = "https://finnhub.io/api/v1/";
-
+const API_URL = 'https://finnhub.io/api/v1/'
 export class HomePage extends Component {
     state = {
         quote : ""
-      }
+    }
     componentDidMount = () => {
-        this.getQuote("AAPL")
+        this.getQuote("AAPL");
+        this.getProfile("AAPL");
     }
     getQuote = (symbol) => {
         Axios.get(API_URL+`/stock/candle?`, {params: {
@@ -27,7 +26,7 @@ export class HomePage extends Component {
                 })
             })
             .catch(error => console.log(error));
-        } 
+    } 
     formatData = (data) => {
         const formattedData = []
         for(let i=0; i<Object.entries(data)[0][1].length;i++){
@@ -43,66 +42,29 @@ export class HomePage extends Component {
         }
         return formattedData;
     }
+    getProfile = (symbol) => {
+        Axios.get(API_URL+`/stock/profile2?`, {params: {
+            symbol: symbol,
+            token: "c04d8tn48v6u76cjevm0",
+            }})
+            .then(response => {
+                this.setState({
+                    companyData:(response.data)
+                })
+                console.log(this.state.companyData)
+            })
+            .catch(error => console.log(error));
+    } 
+    getStock = (symbol) => {
+        this.getProfile(symbol)
+        this.getQuote(symbol)
+    }
     render() {
-        const stockData = this.state.quote;
-        console.log(stockData)
         return (
             <div>
-                <SearchForm submitHandler={this.getQuote} />
-                <CanvasJSChart
-                    options={{
-                        tooltip: {
-                            enabled: true,
-                        },
-                        interactivityEnabled:true,
-                        zoomEnabled: true,
-		                exportEnabled: true,
-                        axisX: {
-                            interval:10,
-                            intervalType:"day",
-                            valueFormatString: "DD MMM",
-                            minimum: new Date(stockData && stockData[0].date*1000),
-                            labelAngle:90,
-                            crosshair: { 
-                                enabled: true,
-                                snapToDataPoint:true
-                            },
-                            scaleBreaks:{
-                                spacing:2,
-                                fillOpacity:0,
-                                lineThickness:0,
-                                customBreaks: stockData && stockData.reduce((breaks, value, index, arr) => {
-                                    
-                                    const currPoint = Number(new Date(value.date))
-                                    const nextPoint = Number(new Date(arr[index+1] ?  arr[index+1].date : 0))
-                                    const oneDay = 86400;
-                                    const difference = nextPoint-currPoint
-                                    return difference === oneDay ? breaks : 
-                                        [...breaks, {
-                                            startValue : (new Date(currPoint * 1000)), 
-                                            endValue: (new Date(nextPoint * 1000))
-                                        }] 
-                                }, [])
-                            }
-                        },
-                        axisY:{
-                            crosshair:{
-                                enabled:true
-                            },
-                            includeZero:false,
-                        },
-                        data:[{
-            
-                            type:"candlestick",
-                            risingColor: "green",
-			                color: "red",
-                            dataPoints: stockData && stockData.map(element => ({
-                                x: new Date(element.date *1000),
-                                y: [element.open, element.high, element.low, element.close]
-                            }))
-                        }]
-                    }}
-                />    
+                <SearchForm submitHandler={this.getStock} />
+                <Chart stockData={this.state.quote}/>
+                <CompanyProfile companyData={this.state.companyData} />
             </div>
         )
     }
