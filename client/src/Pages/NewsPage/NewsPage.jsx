@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
 
+
+
 export class NewsPage extends Component {
     render() {
         return (
             <div>
-                News HomePage
+                News page
             </div>
         )
     }
