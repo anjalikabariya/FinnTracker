@@ -1,32 +1,32 @@
 import { useContext } from 'react';
 import { TrackerContext } from './context/context';
-// import the plugin core
-import 'chartjs-plugin-colorschemes/src/plugins/plugin.colorschemes';
-// import a particular color scheme
-import { Atlas6 } from 'chartjs-plugin-colorschemes/src/colorschemes/colorschemes.office';
 
-
-const useTransactions = (title) => {
-    // const chartColors = ['#123123', '#154731', '#165f40', '#16784f', '#14915f', '#10ac6e', '#0bc77e', '#04e38d', '#00ff9d', '#b50d12', '#bf2f1f', '#c9452c', '#d3583a', '#dc6a48', '#e57c58', '#ee8d68', '#f79d79', '#ffae8a', '#cc474b', '#f55b5f'];
-    //initialize chart 
-    const data = (canvas) =>{
-        const ctx = canvas.getContext("2d")
-        const gradient = ctx.createLinearGradient(0,0,100,0);
+//generate background colors for dynamic doughnut chart
+function getColors(length){
+    let pallet = ["#0074D9", "#FF4136", "#2ECC40", "#FF851B", "#7FDBFF", "#B10DC9", "#FFDC00", "#001f3f", "#39CCCC", "#01FF70", "#85144b", "#F012BE", "#3D9970", "#111111", "#AAAAAA"];
+    let colors = [];
+    for(let i = 0; i < length; i++) {
+      colors.push(pallet[i % pallet.length]);
     }
+    return colors;
+}
+
+//custom hook defined
+const useTransactions = (title) => {
+    //initialize chart 
     const { transactions } = useContext(TrackerContext);
     //keep transactions matching only matching one of the titles "Purchase" / "Sale"
     const selectedTransactions = transactions.filter((t) => t.type === title);
     //calculate total balance of filtered transactions array
     const total = selectedTransactions.reduce((acc, currVal) => acc += currVal.amount, 0);
-
+    //properties to be mapped in doughnut chart
     const chartData = {
         datasets: [{
             data: selectedTransactions.map((c) => c.amount),
-            backgroundColor: gradient
+            backgroundColor: getColors(selectedTransactions.length)
         }],
         labels: selectedTransactions.map((c) => c.stockName),
     };
-
     return { total, chartData };
 };
 
