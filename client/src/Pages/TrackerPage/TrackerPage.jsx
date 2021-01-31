@@ -14,7 +14,7 @@ export class TrackerPage extends Component {
                 <Grid className="grid" container spacing={0} alignItems="center" justify="center" style={{ height: '100vh'}}>
                     <Hidden mdDown>
                         <Grid item xs={12} sm={4}>
-                            <TrackerDetails title="Stocks Purchased" />
+                            <TrackerDetails title="Purchase" />
                         </Grid>    
                     </Hidden>
                     <Grid item xs={12} sm={3}>
@@ -22,11 +22,11 @@ export class TrackerPage extends Component {
                     </Grid>
                     <Hidden lgUp>
                         <Grid item xs={12} sm={4}>
-                            <TrackerDetails title="Stocks Purchased" />
+                            <TrackerDetails title="Purchase" />
                         </Grid>
                     </Hidden>
                     <Grid item xs={12} sm={4}>
-                        <TrackerDetails title="Stocks Sold" />
+                        <TrackerDetails title="Sale" />
                     </Grid>
                 </Grid>                
             </div>
