@@ -1,14 +1,22 @@
-import React, { Component } from 'react'
+import React, {useState, useEffect } from 'react'
 import {Navigation, Register, Login} from './components'
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Redirect } from 'react-router-dom';
 import {HomePage, NewsPage, TrackerPage} from './Pages';
+import {CircularProgress} from '@material-ui/core';
+import firebase from './firebase'
 
 
-export class App extends Component {
+const App = (props) => {
   
-  render() {
-    return (
+  const [firebaseInitialized, setFirebaseInitialized] = useState(false);
+
+  useEffect(() => {
+    firebase.isInitialized().then(val => {
+      setFirebaseInitialized(val)
+    })
+  }, [])
+    return firebaseInitialized !== false ? (
       <div>
         <Router>
           <Navigation />
@@ -19,11 +27,11 @@ export class App extends Component {
             />
             <Route
               path="/login"
-              render={(props) => <Login />}
+              render={<Login />}
             />
             <Route
               path="/register"
-              render={(props) => <Register />}
+              render={<Register />}
             />
             <Route
               path="/home"
@@ -40,8 +48,7 @@ export class App extends Component {
           </Switch>
         </Router>
       </div>
-    )
-  }
+    ) : <CircularProgress />
 }
 
 export default App;

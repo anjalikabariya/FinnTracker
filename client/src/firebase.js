@@ -1,21 +1,22 @@
-import app from 'firebase/app'
+import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firebase-firestore'
 
 const config = {
-	apiKey: "AIzaSyAk0794OsQuDuoEdUfF9nUM_zD17lfRXEE",
-	authDomain: "codedamn-socialapp.firebaseapp.com",
-	databaseURL: "https://codedamn-socialapp.firebaseio.com",
-	projectId: "codedamn-socialapp",
-	storageBucket: "codedamn-socialapp.appspot.com",
-	messagingSenderId: "263473733320"
-}
+	apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+	authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+	projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+	storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+	messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+	appId: process.env.REACT_APP_FIREBASE_APP_ID,
+	measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID
+  };
 
 class Firebase {
 	constructor() {
-		app.initializeApp(config)
-		this.auth = app.auth()
-		this.db = app.firestore()
+		firebase.initializeApp(config)
+		this.auth = firebase.auth()
+		this.db = firebase.firestore()
 	}
 
 	login(email, password) {
@@ -38,7 +39,7 @@ class Firebase {
 			return alert('Not authorized')
 		}
 
-		return this.db.doc(`users_codedamn_video/${this.auth.currentUser.uid}`).set({
+		return this.db.doc(`users/${this.auth.currentUser.uid}`).set({
 			quote
 		})
 	}
@@ -54,7 +55,7 @@ class Firebase {
 	}
 
 	async getCurrentUserQuote() {
-		const quote = await this.db.doc(`users_codedamn_video/${this.auth.currentUser.uid}`).get()
+		const quote = await this.db.doc(`users/${this.auth.currentUser.uid}`).get()
 		return quote.get('quote')
 	}
 }

@@ -2,6 +2,7 @@ import {SearchForm} from '../../components';
 import React, { Component } from 'react'
 import {Chart, CompanyProfile} from '../../components';
 import Axios from 'axios';
+import firebase from '../../firebase'
 
 const API_URL = 'https://finnhub.io/api/v1/'
 export class HomePage extends Component {
@@ -63,9 +64,11 @@ export class HomePage extends Component {
         this.getProfile(symbol)
         this.getQuote(symbol)
     }
+    
     render() {
         return (
             <div>
+                <h1>Hello {firebase.getCurrentUsername()} </h1>
                 <SearchForm submitHandler={this.getStock} />
                 <Chart stockData={this.state.quote}/>
                 <CompanyProfile companyData={this.state.companyData} />

@@ -100,7 +100,7 @@ function Register(props) {
 		try {
 			await firebase.register(name, email, password)
 			await firebase.addQuote(quote)
-			props.history.replace('/dashboard')
+			props.history.replace('/home')
 		} catch(error) {
 			alert(error.message)
 		}
