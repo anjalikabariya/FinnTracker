@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Navigation} from './components'
+import {Navigation, Register, Login} from './components'
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Redirect } from 'react-router-dom';
 import {HomePage, NewsPage, TrackerPage} from './Pages';
@@ -16,6 +16,14 @@ export class App extends Component {
             <Route exact path="/" render={() => {
               return (
                 <Redirect to="/home" />)}}
+            />
+            <Route
+              path="/login"
+              render={(props) => <Login />}
+            />
+            <Route
+              path="/register"
+              render={(props) => <Register />}
             />
             <Route
               path="/home"
