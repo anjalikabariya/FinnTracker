@@ -1,9 +1,9 @@
+require('dotenv').config({path: "./.env"})
 import express from 'express';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import cors from 'cors';
-
-import routes from './Routes/Tracker.js';
+import routes from './Routes/Transaction';
 
 const app = express();
 dotenv.config();

@@ -1,7 +1,7 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { TextField, Typography, Grid, Button, FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
 import { v4 as uid } from 'uuid';
-// import { useSpeechContext } from '@speechly/react-client';
+import { useSpeechContext } from '@speechly/react-client';
 // import Snackbar from '../../Snackbar/Snackbar';
 import dateFormat from '../../utils/dateFormat';
 import {TrackerContext} from '../../context/context';
@@ -15,13 +15,15 @@ const initialState = {
 };
 
 const TrackerForm = () => {
-    //accept reducer functions into component
+//accept reducer functions into component
   const { addTransaction } = useContext(TrackerContext);
   const [formData, setFormData] = useState(initialState);
-//   const { segment } = useSpeechContext();
-//   const [open, setOpen] = React.useState(false);
+//segment of voice
+  const { segment } = useSpeechContext();
+//const [open, setOpen] = React.useState(false);
 
   const createTransaction = () => {
+    if(!Number(formData.amount) || !formData.date.includes('-')) return;
     const transaction=  { ...formData, amount: Number(formData.amount), id: uid() }
 
     //call function from context 
@@ -31,60 +33,58 @@ const TrackerForm = () => {
     setFormData(initialState);
   };
 
-//   useEffect(() => {
-//     if (segment) {
-//       if (segment.intent.intent === 'add_expense') {
-//         setFormData({ ...formData, type: 'Expense' });
-//       } else if (segment.intent.intent === 'add_income') {
-//         setFormData({ ...formData, type: 'Income' });
-//       } else if (segment.isFinal && segment.intent.intent === 'create_transaction') {
-//         return createTransaction();
-//       } else if (segment.isFinal && segment.intent.intent === 'cancel_transaction') {
-//         return setFormData(initialState);
-//       }
+//when voice segment is changes, useEffect will be called
+useEffect(() => {
+    if(segment){
+        //conditional  checking of intent to determine type of transaction to be created
+        if(segment.intent.intent === "add_sale"){
+            setFormData({...formData, type:"Sale"});
+        } 
+        else if(segment.intent.intent === "add_purchase"){
+            setFormData({...formData, type:"Purchase"});
+        }
+        //checks if segment is finished or user has stopped speaking to determine creation or deletion of transaction
+        else if(segment.isFinal && segment.intent.intent === "create_transaction"){
+            return createTransaction();
+        }
+        else if(segment.isFinal && segment.intent.intent === "cancel_transaction"){
+            return setFormData(initialState);
+        }
+        segment.entities.forEach((s) => {
+            //capitalize first letter of each word in sentence to match entity array of speechly
+            const stockName  = `${s.value.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase())}`;
 
-//       segment.entities.forEach((s) => {
-//         const category = `${s.value.charAt(0)}${s.value.slice(1).toLowerCase()}`;
+            switch (s.type) {
+            //make changes in form based on entity received from speech segment
+                case 'amount':
+                    setFormData({ ...formData, amount: s.value });
+                    break;
+                case 'stockname':
+                    setFormData({ ...formData, stockName });
+                    break;
+                case 'date':
+                    setFormData({ ...formData, date: s.value });
+                    break;
+                default:
+                    break;
+                }
+          });
 
-//         switch (s.type) {
-//           case 'amount':
-//             setFormData({ ...formData, amount: s.value });
-//             break;
-//         //   case 'category':
-//         //     if (incomeCategories.map((iC) => iC.type).includes(category)) {
-//         //       setFormData({ ...formData, type: 'Income', category });
-//         //     } else if (expenseCategories.map((iC) => iC.type).includes(category)) {
-//         //       setFormData({ ...formData, type: 'Expense', category });
-//         //     }
-//         //     break;
-//           case 'date':
-//             setFormData({ ...formData, date: s.value });
-//             break;
-//           default:
-//             break;
-//         }
-//       });
+        if (segment.isFinal && formData.amount && formData.stockName && formData.type && formData.date) {
+            createTransaction();
+        }
+    }
+}, [segment]);
 
-//       if (segment.isFinal && formData.amount && formData.category && formData.type && formData.date) {
-//         createTransaction();
-//       }
-//     }
-//   }, [segment]);
-
-//   const selectedCategories = formData.type === 'Income' ? incomeCategories : expenseCategories;
-
+     
   return (
         <div>
             <Grid container spacing={2}>
                 {/* <Snackbar open={open} setOpen={setOpen} /> */}
                 <Grid item xs={12}>
                     <Typography align="center" variant="subtitle2" gutterBottom>
-                    {/* {segment ? (
-                    <div className="segment">
-                    {segment.words.map((w) => w.value).join(" ")}
-                    </div>
-                ) : null} */}
-                    {/* {isSpeaking ? <BigTranscript /> : 'Start adding transactions'}  */}
+                        {segment && segment.words.map((w) => w.value).join(" ")}
+                            {/* {isSpeaking ? <BigTranscript /> : 'Start adding transactions'}  */}
                     </Typography>
                 </Grid>
                 <Grid item xs={6}>
