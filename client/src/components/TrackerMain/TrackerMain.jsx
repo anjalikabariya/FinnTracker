@@ -1,19 +1,17 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import { Card, CardHeader, CardContent, Typography, Grid, Divider } from '@material-ui/core';
 import {TrackerForm, TrackerList} from '../'
 import './styles.scss';
+import { TrackerContext } from '../../context/context';
 
 const TrackerMain = () => {
+    const {balance} = useContext(TrackerContext)
     return (
         <div>
-            <Card className="root">
+            <Card className="root" style={{backgroundColor: '#f7f7f6'}}>
                 <CardHeader title="Stock Tracker" subheader="Keep track of stock purchase/sales" />
                 <CardContent>
-                    <Typography align="center" variant="h5">Total Balance $100</Typography>
-                    <Typography variant="subtitle1" style={{ lineHeight: '1.5em', marginTop: '20px' }}>
-                        {/* <InfoCard /> */}
-                        Demo sentence
-                    </Typography>
+                    <Typography align="center" variant="h5">Total Balance ${balance}</Typography>
                     <Divider className="divider" />
                     <TrackerForm />
                 </CardContent>

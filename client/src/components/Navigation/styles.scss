@@ -1,0 +1,30 @@
+.nav{
+    &__container{
+        display: flex;
+        flex-direction: column;
+    }
+    &__logo{
+        height: 100%;
+        width: 25%;
+        &--container{
+            display: flex;
+            justify-content: center;
+            margin-top: 5px;
+            height: 6rem;
+        }
+    }
+    &__menu{
+        display: flex;
+        justify-content: space-between;
+        &-link{
+            color: white;
+            font-weight: bold;
+            font-size: 2rem;
+            padding:5px;
+            margin: 2rem;
+            &--active{
+                border:5px solid white;
+            }
+       }
+    }
+}

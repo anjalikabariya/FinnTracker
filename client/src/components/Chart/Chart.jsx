@@ -1,13 +1,19 @@
-
+import './styles.scss';
 import React from 'react'
 import CanvasJSReact from "canvasjs-react-charts";
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 function Chart({stockData}) {
     return (
-        <div>
+        <div className="chart__container">
             <CanvasJSChart
                 options={{
+                    legend:{
+                        
+                    },
+                    fontColor:"white",
+                    color:"white",
+                    backgroundColor:"black",
                     tooltip: {
                         enabled: true,
                     },
@@ -18,6 +24,7 @@ function Chart({stockData}) {
                         interval:10,
                         intervalType:"day",
                         valueFormatString: "DD MMM",
+                        labelFontColor:"white",
                         minimum: new Date(stockData && stockData[0].date*1000),
                         labelAngle:-45,
                         crosshair: { 
@@ -43,6 +50,7 @@ function Chart({stockData}) {
                         }
                     },
                     axisY:{
+                        labelFontColor:"white",
                         crosshair:{
                             enabled:true
                         },

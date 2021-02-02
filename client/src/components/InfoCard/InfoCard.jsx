@@ -1,21 +1,20 @@
 import React from 'react'
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
+import './styles.scss';
 
 function InfoCard({title, value}) {
     return (
-        <div>
-            <Card>
-                <CardContent>
-                    <Typography>
-                        {title}
-                    </Typography>
-                    <Typography>
-                        {value}    
-                    </Typography>
-                </CardContent>
-            </Card>
+        <div className="card__container">
+            <div className="card__content" >
+                <p className={title !== "logo" ? `card__title` : `display__none`}>
+                    {title.toUpperCase()}: 
+                </p>
+                <p className={title !== "logo" ? `card__value` : `display__none`}>
+                    {value}    
+                </p>
+                <div className={title === "logo" ? `card__image` : `display__none`}>
+                    <img src={value} alt="company logo" />
+                </div>
+            </div>
         </div>
     )
 }
