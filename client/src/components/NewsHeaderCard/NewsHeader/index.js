@@ -1,7 +1,7 @@
 import React from 'react';
 import './styles.scss';
 
-function NewsHeader({title, author, date, tags}) {
+function NewsHeader({title, author, tags}) {
     return(
       <div className='news-header'>
 	      
@@ -12,10 +12,6 @@ function NewsHeader({title, author, date, tags}) {
 	      <div className='bottom'>
 	        <div className='author'>
 	          {author}
-	        </div>
-
-	        <div className='date'>
-	          {date}
 	        </div>
         </div>
 	      <div className='tags'>

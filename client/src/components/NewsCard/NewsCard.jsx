@@ -7,7 +7,7 @@ const NewsCard = ({data}) => {
     return (
         <div className="news__wrapper">
             {data && data.map((item) => {
-                return <NewsHeaderCard key={uid()} href={item.url} thumbnail={item.image} tags={item.category} author={item.source} date={item.datetime} title={item.headline} />
+                return <NewsHeaderCard key={uid()} href={item.url} thumbnail={item.image} tags={item.category} author={item.source} title={item.headline} />
             })} 
         </div>
     )

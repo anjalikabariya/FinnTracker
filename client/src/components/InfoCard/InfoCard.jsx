@@ -12,7 +12,7 @@ function InfoCard({title, value}) {
                     {value}    
                 </p>
                 <div className={title === "logo" ? `card__image` : `display__none`}>
-                    <img src={value} alt="company logo" />
+                    <img src={value} alt="" />
                 </div>
             </div>
         </div>

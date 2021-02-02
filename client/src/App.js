@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Navigation, Register, Login} from './components'
+import {Navigation} from './components'
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Redirect } from 'react-router-dom';
 import {HomePage, NewsPage, TrackerPage} from './Pages';
