@@ -32,7 +32,6 @@ const useBalance = () => {
     purchaseQuery.get().then(
         function(querySnapshot) {
           querySnapshot.forEach(function(doc) {
-            console.log(doc.data().amount)
             total -= doc.data().amount
             setBal(total)
           });

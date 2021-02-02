@@ -1,6 +1,5 @@
 import React from 'react';
 import './styles.scss';
-import SearchIcon from '@material-ui/icons/Search';
 
 function SearchForm({submitHandler}) {
     //pass value from search bar input to submitHandler function
@@ -8,9 +7,6 @@ function SearchForm({submitHandler}) {
         e.preventDefault();
         let searchQuery = e.target.title.value;
         submitHandler(searchQuery);
-      }
-      const search =()=>{
-         <SearchIcon />
       }
     return (
         <form onSubmit={searchRes} className="search">
