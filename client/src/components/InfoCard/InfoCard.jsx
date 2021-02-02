@@ -1,21 +1,17 @@
 import React from 'react'
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
+import './styles.scss';
 
 function InfoCard({title, value}) {
     return (
-        <div>
-            <Card>
-                <CardContent>
-                    <Typography>
-                        {title}
-                    </Typography>
-                    <Typography>
-                        {value}    
-                    </Typography>
-                </CardContent>
-            </Card>
+        <div className="card">
+            <div className="card__container">
+                <p className="card__title">
+                    {title}:
+                </p>
+                <p className="card__value">
+                    {value}    
+                </p>
+            </div>
         </div>
     )
 }

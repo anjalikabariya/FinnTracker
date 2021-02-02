@@ -3,15 +3,17 @@ import React, { Component } from 'react'
 import {Chart, CompanyProfile} from '../../components';
 import Axios from 'axios';
 
-const API_URL = 'https://finnhub.io/api/v1/'
+const API_URL = 'https://finnhub.io/api/v1/';
 export class HomePage extends Component {
     state = {
         quote : ""
     }
+    //render default data on component mount
     componentDidMount = () => {
         this.getQuote("AAPL");
         this.getProfile("AAPL");
     }
+    //api call to get candlestick data for chart
     getQuote = async (symbol) => {
         const response = await Axios.get(API_URL+`/stock/candle?`, {params: {
             symbol: symbol,
@@ -29,6 +31,8 @@ export class HomePage extends Component {
                 console.log(error);
             } 
     } 
+    //function to format raw data received from api to enable proper mapping into chart
+    //converts object to array of objects
     formatData = (data) => {
         const formattedData = []
         for(let i=0; i<Object.entries(data)[0][1].length;i++){
@@ -44,6 +48,8 @@ export class HomePage extends Component {
         }
         return formattedData;
     }
+
+    //api call to get company profile information
     getProfile = async (symbol) => {
         const response = await Axios.get(API_URL+`/stock/profile2?`, {params: {
             symbol: symbol,
@@ -59,13 +65,16 @@ export class HomePage extends Component {
                 console.log(error);
             }
     } 
+
+    //function binding both api calls for chart and company profile
+    //called when searched for company 
     getStock = (symbol) => {
         this.getProfile(symbol)
         this.getQuote(symbol)
     }
     render() {
         return (
-            <div>
+            <div className="main">
                 <SearchForm submitHandler={this.getStock} />
                 <Chart stockData={this.state.quote}/>
                 <CompanyProfile companyData={this.state.companyData} />

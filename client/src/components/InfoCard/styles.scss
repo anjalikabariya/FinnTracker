@@ -1,0 +1,19 @@
+.card{
+    width: 100%;
+    max-height: auto;
+    background-color: black;
+    color: white;
+    &__container{
+        background-color: black;
+        color: white;
+        display: flex;
+    }
+    &__title{
+        font-size: 1.5rem;
+        font-weight: bold;
+    }
+    &__value{
+        font-size: 1.5rem;
+        font-weight: 400;
+    }
+}
