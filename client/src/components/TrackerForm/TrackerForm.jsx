@@ -74,13 +74,12 @@ useEffect(() => {
             createTransaction();
         }
     }
-}, [segment]);
+},[segment, formData]);
 
      
   return (
         <div>
             <Grid container spacing={2}>
-                {/* <Snackbar open={open} setOpen={setOpen} /> */}
                 <Grid item xs={12}>
                     <Typography align="center" variant="subtitle2" gutterBottom>
                         {segment && segment.words.map((w) => w.value).join(" ")}
