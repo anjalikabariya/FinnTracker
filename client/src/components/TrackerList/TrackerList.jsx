@@ -26,21 +26,14 @@ const useItems = () => {
   };
 
 const TrackerList = () => {
-    // const { transactions, deleteTransaction } = useContext(TrackerContext);
-    const items = useItems();
-    const onDelete = (id) => {
-        var jobskill_query = firebase.firestore().collection("transactions").where('id','==', id);
-        jobskill_query.get().then(function(querySnapshot) {
-          querySnapshot.forEach(function(doc) {
-            doc.ref.delete();
-          });
-        });
-    }
+    let {transactions} = useContext(TrackerContext)
+    transactions = useItems();
+    let{deleteTransaction} = useContext(TrackerContext)
     return (
-        
         <div>
             <MUIList dense={false} className="list">
-                {items && items.map((transaction) => (
+                {transactions && transactions.map((transaction) => (
+                  // animation on list when transaction added or removed
                     <Slide direction="down" in mountOnEnter unmountOnExit key={transaction.id}>
                     <ListItem>
                         <ListItemAvatar>
@@ -50,7 +43,7 @@ const TrackerList = () => {
                         </ListItemAvatar>
                         <ListItemText primary={transaction.stockName} secondary={`$${transaction.amount} - ${transaction.date}`} />
                         <ListItemSecondaryAction>
-                            <IconButton edge="end" aria-label="delete" onClick={() => onDelete(transaction.id)}>
+                            <IconButton edge="end" aria-label="delete" onClick={() => deleteTransaction(transaction.id)}>
                                 <Delete />
                             </IconButton>
                         </ListItemSecondaryAction>
