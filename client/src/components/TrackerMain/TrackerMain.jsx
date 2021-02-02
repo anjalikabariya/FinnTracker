@@ -6,14 +6,10 @@ import './styles.scss';
 const TrackerMain = () => {
     return (
         <div>
-            <Card className="root">
+            <Card className="root" style={{backgroundColor: '#f7f7f6'}}>
                 <CardHeader title="Stock Tracker" subheader="Keep track of stock purchase/sales" />
                 <CardContent>
-                    <Typography align="center" variant="h5">Total Balance $100</Typography>
-                    <Typography variant="subtitle1" style={{ lineHeight: '1.5em', marginTop: '20px' }}>
-                        {/* <InfoCard /> */}
-                        Demo sentence
-                    </Typography>
+                    <Typography align="center" variant="h5">Total Balance ${}</Typography>
                     <Divider className="divider" />
                     <TrackerForm />
                 </CardContent>

@@ -9,13 +9,15 @@ const TrackerDetails = ({ title, subheader }) => {
   
   const { total, chartData } = useTransactions(title);
   return (
-    <Card className={title === 'Purchase' ? `purchase` : `sale`}>
-      <CardHeader title={title} subheader={subheader} />
-      <CardContent>
-        <Typography variant="h5">${total}</Typography>
-        <Doughnut data={chartData} />
-      </CardContent>
-    </Card>
+    <div className="detail__container">
+      <Card className={title === 'Purchase' ? `purchase` : `sale`} style={{color: 'white', backgroundColor: 'black'}}>
+        <CardHeader title={title} subheader={subheader} />
+        <CardContent>
+          <Typography variant="h5">${total}</Typography>
+          <Doughnut data={chartData} />
+        </CardContent>
+      </Card>
+    </div>
   );
 };
 

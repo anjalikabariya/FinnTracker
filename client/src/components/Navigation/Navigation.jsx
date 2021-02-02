@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import logo from '../../Assets/logo.JPG';
+import logo from '../../Assets/logo2.JPG';
 import './styles.scss';
 
 const Navigation = () => {
