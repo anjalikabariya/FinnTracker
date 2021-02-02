@@ -8,13 +8,13 @@ function NewsHeaderCard ({href, title, author, date, thumbnail, tags}) {
       <a href={href}>
 	      <div className="card card--float">
 	        <NewsHeaderBackground
-	          thumbnail={thumbnail}
+	         	thumbnail={thumbnail}
 	        />
 	        <NewsHeader
-	          title={title}
-	          author={author}
-	          date={date}
-            tags={tags}
+				title={title}
+				author={author}
+				date={date}
+				tags={tags}
 	        />
 	      </div>
       </a> 
