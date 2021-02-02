@@ -1,19 +1,30 @@
 .card{
-    width: 100%;
-    max-height: auto;
-    background-color: black;
-    color: white;
     &__container{
+        width: 55%;
+        max-height: auto;  
+    }
+    &__content{
         background-color: black;
         color: white;
         display: flex;
     }
     &__title{
         font-size: 1.5rem;
-        font-weight: bold;
+        margin: 5px;
     }
     &__value{
+        margin:5px;
         font-size: 1.5rem;
-        font-weight: 400;
     }
+    &__image{
+        display: flex;
+        justify-content: flex-end;
+        margin: 10px;
+        right: 30px;
+        position: absolute;
+        top: 85vh;
+    }
+}
+.display__none{
+    display: none;
 }

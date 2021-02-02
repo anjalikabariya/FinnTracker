@@ -65,6 +65,24 @@ export class HomePage extends Component {
                 console.log(error);
             }
     } 
+    formatProfileData = (data) => {
+        const formattedData = [{"country": "US",
+        "currency": "USD",
+        "exchange": "NASDAQ NMS - GLOBAL MARKET",
+        "finnhubIndustry": "Technology",
+        "ipo": "1980-12-12",
+        "logo": "https://static.finnhub.io/logo/87cb30d8-80df-11ea-8951-00000000092a.png",
+        "marketCapitalization": 2389912.74,
+        "name": "Apple Inc",
+        "phone": "14089961010.0",
+        "shareOutstanding": 16976.76,
+        "ticker": "AAPL",
+        "weburl": "https://www.apple.com/"}]
+        Object.entries(data).map((obj) => {
+            "Currency "
+        })
+        return formattedData;
+    }
 
     //function binding both api calls for chart and company profile
     //called when searched for company 

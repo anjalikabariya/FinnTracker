@@ -3,14 +3,17 @@ import './styles.scss';
 
 function InfoCard({title, value}) {
     return (
-        <div className="card">
-            <div className="card__container">
-                <p className="card__title">
-                    {title}:
+        <div className="card__container">
+            <div className="card__content" >
+                <p className={title !== "logo" ? `card__title` : `display__none`}>
+                    {title.toUpperCase()}: 
                 </p>
-                <p className="card__value">
+                <p className={title !== "logo" ? `card__value` : `display__none`}>
                     {value}    
                 </p>
+                <div className={title === "logo" ? `card__image` : `display__none`}>
+                    <img src={value} alt="company logo" />
+                </div>
             </div>
         </div>
     )
