@@ -2,13 +2,15 @@ import firebase from 'firebase/app'
 import 'firebase/firestore'
 
 const fireBaseConfig = {
-	apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.REACT_APP_FIREBASE_APP_ID,
-  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID
+	// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  apiKey: "AIzaSyBAb7Z1mP7WIQZLFn8WBEkOw0em2l5M0uk",
+  authDomain: "finntracker-489c6.firebaseapp.com",
+  databaseURL: "https://finntracker-489c6-default-rtdb.firebaseio.com",
+  projectId: "finntracker-489c6",
+  storageBucket: "finntracker-489c6.appspot.com",
+  messagingSenderId: "850303246138",
+  appId: "1:850303246138:web:ea09d1634d0f265cb8ba03",
+  measurementId: "G-NKEFD9FD1V"
 }
 firebase.initializeApp(fireBaseConfig)
 export default firebase;
